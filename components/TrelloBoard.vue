@@ -1,21 +1,7 @@
-<template>
-    <div class="flex gap-4 overflow-x-auto items-start">
-        <div>
-            <div v-for="column in columns" :key="column.id">
-                <header>
-                    {{ column.title }}
-                </header>
-                <p v-for="task in column.tasks" :key="task.id">
-                    {{ task.title }}
-                </p>
-            </div>
-        </div>
-    </div>
-</template>
-
 <script setup lang="ts">
 import type { Column } from '~~/types'
 import { nanoid } from 'nanoid'
+import draggable from 'vuedraggable';
 
 const columns = ref<Column[]>([
     {
@@ -45,3 +31,33 @@ const columns = ref<Column[]>([
     { title: "Complete", id: nanoid(), tasks: [] }
 ]);
 </script>
+
+<template>
+    <div>
+        <div >
+            <draggable
+                v-model="columns"
+                group-key="columns"
+                item-key="id"
+                class="flex gap-4 overflow-x-auto items-start"
+            >
+                <template #item="{element: column } : {element: Column}">
+                    <div class="column bg-gray-200 p-5 rounded min-w-[250px]">
+                        <header class="font-bold mb-4">
+                            {{ column.title }}
+                        </header>
+                        <TrelloBoardTask 
+                            v-for="task in column.tasks"
+                            :key="task.id"
+                            :task="task"
+                        />
+                        <footer>
+                            <button class="text-gray-500">+ Add a card</button>
+                        </footer>
+                    </div>
+                </template>
+            </draggable>
+        </div>
+    </div>
+</template>
+
