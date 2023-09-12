@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Column } from '~~/types'
+import type { Column, Task } from '~~/types'
 import { nanoid } from 'nanoid'
 import draggable from 'vuedraggable';
 
@@ -39,25 +39,28 @@ const columns = ref<Column[]>([
                 v-model="columns"
                 group-key="columns"
                 item-key="id"
-                animation="150"
+                :animation="150"
                 handle=".draggble"
                 class="flex gap-4 overflow-x-auto items-start"
             >
                 <template #item="{element: column } : {element: Column}">
                     <div class="column bg-gray-200 p-5 rounded min-w-[250px]">
                         <header class="font-bold mb-4 flex items-center gap-2">
-                            <span class="draggble cursor-move">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
-                                    <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                </svg>
-                            </span>
+                            <DragHandle/>
                             {{ column.title }}
                         </header>
-                        <TrelloBoardTask 
-                            v-for="task in column.tasks"
-                            :key="task.id"
-                            :task="task"
-                        />
+                        <draggable
+                            v-model="column.tasks"
+                            group-key="tasks"
+                            item-key="id"
+                            :animation="150"
+                        >
+                            <template #item="{element: task}: {element: Task}">
+                                <TrelloBoardTask
+                                    :task="task"
+                                />
+                            </template>
+                        </draggable>
                         <footer>
                             <button class="text-gray-500">+ Add a card</button>
                         </footer>
