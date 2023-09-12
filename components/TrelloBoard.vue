@@ -37,10 +37,10 @@ const columns = ref<Column[]>([
         <div >
             <draggable
                 v-model="columns"
-                group-key="columns"
+                group="columns"
                 item-key="id"
                 :animation="150"
-                handle=".draggble"
+                handle=".draggble-handle"
                 class="flex gap-4 overflow-x-auto items-start"
             >
                 <template #item="{element: column } : {element: Column}">
@@ -51,11 +51,11 @@ const columns = ref<Column[]>([
                         </header>
                         <draggable
                             v-model="column.tasks"
-                            group-key="tasks"
+                            group="tasks"
                             item-key="id"
                             :animation="150"
                         >
-                            <template #item="{element: task}: {element: Task}">
+                            <template #item="{ element: task }: { element: Task }">
                                 <TrelloBoardTask
                                     :task="task"
                                 />
