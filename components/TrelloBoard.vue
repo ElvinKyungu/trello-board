@@ -30,6 +30,7 @@ const columns = ref<Column[]>([
     { title: "QA", id: nanoid(), tasks: [] },
     { title: "Complete", id: nanoid(), tasks: [] }
 ]);
+const alt = useKeyModifier('Alt')
 </script>
 
 <template>
@@ -51,7 +52,7 @@ const columns = ref<Column[]>([
                         </header>
                         <draggable
                             v-model="column.tasks"
-                            group="tasks"
+                            group="task"
                             item-key="id"
                             :animation="150"
                         >
@@ -62,7 +63,7 @@ const columns = ref<Column[]>([
                             </template>
                         </draggable>
                         <footer>
-                            <button class="text-gray-500">+ Add a card</button>
+                            <NewTask @add="column.tasks.push($event)" />
                         </footer>
                     </div>
                 </template>
