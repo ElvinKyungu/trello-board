@@ -1,6 +1,12 @@
 # Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Bienvenue dans le projet de Trello-board, une interface drag and drop ressemblant à Trello en utilisant la puissance du framework Nuxt.js.
+
+Plus de détails ici:  [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+
+## Aperçu
+
+![Aperçu du projet](./public/preview.png)
 
 ## Setup
 
